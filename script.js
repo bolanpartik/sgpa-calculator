@@ -4,6 +4,7 @@ const creditInput = document.getElementById("input-credit");
 const subjectInput = document.getElementById("input-subject")
 const addSubjectBtn = document.getElementById("add-subject");
 const showOuterContainer = document.getElementById("outer-show-container")
+const clearInputs=document.getElementById("clear-inputs");
 
 let mode = "dark";
 
@@ -31,6 +32,14 @@ const changeMode = () => {
     else {
         lightMode()
     }
+}
+
+// Function to reset the input values.
+const resetInputs = () => {
+    subjectInput.value = ''
+    creditInput.value = ''
+    gradeInput.value = ''
+    subjectInput.focus()
 }
 
 // Function to display the entered subjects by user
@@ -69,9 +78,13 @@ function checkVaild(input) {
 }
 
 switchModes.addEventListener("click", changeMode)
+
+clearInputs.addEventListener('click',resetInputs)
+
 addSubjectBtn.addEventListener("click", () => {
     if (checkVaild(subjectInput) && checkVaild(gradeInput) && checkVaild(creditInput)) {
         createSubject()
+        resetInputs()
     } else {
         alert("Grade or Credit or Subject must be enter.")
     }
