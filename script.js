@@ -8,6 +8,8 @@ const clearInputs=document.getElementById("clear-inputs");
 
 let mode = "dark";
 let calBtnExists = false
+const allCredits = []
+const allGrades = []
 
 const darkMode = () => {
     document.getElementById("mode-img").src = "./assets/dark.png";
@@ -35,6 +37,42 @@ const changeMode = () => {
     }
 }
 
+// Round off value up to two decimals
+const roundOffValue=(num)=>{
+    return Math.round(num*100)/100
+}
+
+// Covert grades in points
+const gradeToPoints=(grade)=>{
+    switch(grade){
+        case 'A+' : return 10
+        case 'A' : return 9
+        case 'B+' : return 8
+        case 'B' : return 7
+        case 'C+' : return 6
+        case 'C' : return 5
+        case 'D' : return 4
+        case 'E' : return 0
+        case 'F' : return 0
+        default : return 0
+    }
+}
+
+// To calculate overall 
+const calculateAll = () => {
+    let sum = 0;
+    let totalCredit = 0;
+    const allSubjects = document.getElementsByClassName("show-container")
+    for (i = 0; i < allSubjects.length; i++) {
+        const credit = parseFloat(allCredits[i])
+        const grade =gradeToPoints(allGrades[i])
+        sum +=credit*grade
+        totalCredit += credit
+    }
+    const userSGPA = sum / totalCredit;
+    const roundOFFSgpa=roundOffValue(userSGPA);
+}
+
 // Check total subjects if it is greater than one then add a calculate button
 const checkTotalSubjects = () => {
     const totalSubjects = document.getElementsByClassName("show-container").length
@@ -42,6 +80,7 @@ const checkTotalSubjects = () => {
         const calculateBtn = document.createElement('button')
         calculateBtn.classList.add('calculate-button')
         calculateBtn.innerText = "Calculate"
+        calculateBtn.addEventListener("click", calculateAll) 
         showOuterContainer.appendChild(calculateBtn)
         calBtnExists = true;
     }else if(totalSubjects<=1 && calBtnExists){
@@ -100,6 +139,8 @@ clearInputs.addEventListener('click',resetInputs)
 
 addSubjectBtn.addEventListener("click", () => {
     if (checkVaild(subjectInput) && checkVaild(gradeInput) && checkVaild(creditInput)) {
+        allCredits.push(creditInput.value)
+        allGrades.push(gradeInput.value)
         createSubject()
         resetInputs()
         checkTotalSubjects()
