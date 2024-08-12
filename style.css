@@ -5,3 +5,15 @@
 .input-fields{
     @apply mt-2 border border-black outline-none rounded-lg p-1 px-2 text-black bg-slate-200 focus:bg-slate-200 
 }
+
+#show-container{
+    @apply border m-3 p-3 rounded-xl shadow-yellow-500 shadow-inner border-green-500 flex flex-col items-center
+}
+
+.subject{
+    @apply text-center
+}
+
+.delete-button{
+    @apply px-2 border-none mt-2 bg-red-400 hover:bg-red-500 text-black rounded-md
+}
