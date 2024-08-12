@@ -51,8 +51,15 @@ const createSubject = () => {
     credit.classList.add("credit")
     credit.innerText = `Credit : ${creditInput.value}`;
 
-    card.append(subject,credit,grade)
+    const deleteBtn = document.createElement("button")
+    deleteBtn.classList.add('delete-button')
+    deleteBtn.innerText = "Delete"
 
+    card.append(subject,credit,grade,deleteBtn)
+
+    deleteBtn.addEventListener('click', () => {
+        showOuterContainer.removeChild(card)
+    })
     showOuterContainer.appendChild(card);
 }
 
