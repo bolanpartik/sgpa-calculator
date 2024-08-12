@@ -17,3 +17,7 @@
 .delete-button{
     @apply px-2 border-none mt-2 bg-red-400 hover:bg-red-500 text-black rounded-md
 }
+
+.calculate-button{
+    @apply  absolute top-full p-1 px-3 rounded-lg bg-sky-300 hover:bg-sky-500
+}
