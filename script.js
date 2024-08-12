@@ -7,6 +7,7 @@ const showOuterContainer = document.getElementById("outer-show-container")
 const clearInputs=document.getElementById("clear-inputs");
 
 let mode = "dark";
+let calBtnExists = false
 
 const darkMode = () => {
     document.getElementById("mode-img").src = "./assets/dark.png";
@@ -31,6 +32,21 @@ const changeMode = () => {
     }
     else {
         lightMode()
+    }
+}
+
+// Check total subjects if it is greater than one then add a calculate button
+const checkTotalSubjects = () => {
+    const totalSubjects = document.getElementsByClassName("show-container").length
+    if (!calBtnExists && totalSubjects > 1) {
+        const calculateBtn = document.createElement('button')
+        calculateBtn.classList.add('calculate-button')
+        calculateBtn.innerText = "Calculate"
+        showOuterContainer.appendChild(calculateBtn)
+        calBtnExists = true;
+    }else if(totalSubjects<=1 && calBtnExists){
+            showOuterContainer.removeChild(document.getElementsByClassName('calculate-button')[0])
+            calBtnExists=false
     }
 }
 
@@ -68,6 +84,7 @@ const createSubject = () => {
 
     deleteBtn.addEventListener('click', () => {
         showOuterContainer.removeChild(card)
+        checkTotalSubjects()
     })
     showOuterContainer.appendChild(card);
 }
@@ -85,6 +102,7 @@ addSubjectBtn.addEventListener("click", () => {
     if (checkVaild(subjectInput) && checkVaild(gradeInput) && checkVaild(creditInput)) {
         createSubject()
         resetInputs()
+        checkTotalSubjects()
     } else {
         alert("Grade or Credit or Subject must be enter.")
     }
