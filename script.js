@@ -37,6 +37,31 @@ const changeMode = () => {
     }
 }
 
+//  To show the final sgpa on screen
+const showSPGA=(sgpa)=>{
+    const showFinalResult=document.createElement("div")
+    showFinalResult.classList.add('final-result')
+
+    const resultSGPA=document.createElement('p')
+    resultSGPA.classList.add('result-sgpa')
+    resultSGPA.innerText=`Your SPGA is : ${sgpa}`;
+
+    const cancelButton=document.createElement('button')
+    cancelButton.innerText='Cancel'
+    cancelButton.classList.add('cancel-button')
+
+    showFinalResult.appendChild(resultSGPA)
+    showFinalResult.appendChild(cancelButton)
+
+    document.body.appendChild(showFinalResult)
+    document.getElementsByTagName('main')[0].classList.add('non-active')
+    
+    cancelButton.addEventListener('click',()=>{
+        document.body.removeChild(showFinalResult)
+        document.getElementsByTagName('main')[0].classList.remove('non-active')
+    })
+}
+
 // Round off value up to two decimals
 const roundOffValue=(num)=>{
     return Math.round(num*100)/100
@@ -71,6 +96,7 @@ const calculateAll = () => {
     }
     const userSGPA = sum / totalCredit;
     const roundOFFSgpa=roundOffValue(userSGPA);
+    showSPGA(roundOFFSgpa)
 }
 
 // Check total subjects if it is greater than one then add a calculate button
@@ -148,3 +174,5 @@ addSubjectBtn.addEventListener("click", () => {
         alert("Grade or Credit or Subject must be enter.")
     }
 })
+
+// commit - show final result
